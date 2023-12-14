@@ -1,10 +1,11 @@
-const express = require("express");
 require("dotenv").config();
+const express = require("express");
 const sequelize = require("./db");
-
-const app = express();
+const models = require("./models/models");
 
 PORT = process.env.PORT || 3001;
+
+const app = express();
 
 // Функція для підключення БД
 const start = async () => {
