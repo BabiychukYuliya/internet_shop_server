@@ -3,6 +3,7 @@ const express = require("express");
 const sequelize = require("./db");
 const models = require("./models/models");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 const router = require("./routes/index");
 const errorHandler = require("./middlewears/ErrorHandlingMiddlewear");
 
@@ -11,6 +12,7 @@ PORT = process.env.PORT || 3001;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload({})); // для завантаження файлів
 app.use("/api", router);
 app.use(errorHandler); //обробка помилок, остання мідлвара
 
