@@ -24,7 +24,28 @@ const createDevice = async (req, res, next) => {
   }
 };
 
-const getAllDevice = async (req, res) => {};
+const getAllDevice = async (req, res) => {
+  const { brandId, typeId } = req.body;
+  let devices;
+
+  if (!brandId && !typeId) {
+    devices = await Device.findAll();
+  }
+
+  if (!brandId && typeId) {
+    devices = await Device.findAll({ where: { typeId } });
+  }
+
+  if (brandId && !typeId) {
+    devices = await Device.findAll({ where: { brandId } });
+  }
+
+  if (brandId && typeId) {
+    devices = await Device.findAll({ where: { brandId, typeId } });
+  }
+  return res.json(devices);
+};
+
 const getOneDevice = async (req, res) => {};
 const removeDevice = async (req, res) => {};
 
