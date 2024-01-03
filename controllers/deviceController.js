@@ -82,7 +82,11 @@ const getOneDevice = async (req, res) => {
   return res.json(device);
 };
 
-const removeDevice = async (req, res) => {};
+const removeDevice = async (req, res) => {
+  const { id } = req.params;
+  const deviceDel = await Device.destroy({ where: { id: id } });
+  return res.json({ message: "Пристрій успішно видалено" });
+};
 
 module.exports = {
   createDevice,
