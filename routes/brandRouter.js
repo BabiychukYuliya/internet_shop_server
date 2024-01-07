@@ -1,8 +1,9 @@
 const Router = require("express");
 const router = new Router();
 const BrandController = require("../controllers/brandController");
+const checkRole = require("../middlewears/checkRoleMiddlewear");
 
-router.post("/", BrandController.createBrand);
+router.post("/", checkRole("ADMIN"), BrandController.createBrand);
 router.get("/", BrandController.getAllBrands);
 router.delete("/:id", BrandController.removeBrand);
 
