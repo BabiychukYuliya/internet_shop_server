@@ -3,7 +3,7 @@ const router = new Router();
 const RaitingController = require("../controllers/raitingController");
 
 router.post("/", RaitingController.createRaiting);
-// router.get("/", RaitingController.getAll);
+router.get("/", RaitingController.getAllRaiting);
 router.patch("/:id", RaitingController.updateRaiting);
 // router.delete("/:id", RaitingController.remove);
 

@@ -10,23 +10,29 @@ const createRaiting = async (req, res) => {
 };
 
 const updateRaiting = async (req, res) => {
-  const { id } = req.params;
-  const { rate } = req.body;
   try {
-    const raiting = await Raiting.findByPk(id);
-
-    if (!raiting) {
+    const raiting = await Raiting.findByPk(req.params.id);
+    console.log("Raiting", Raiting);
+    if (raiting) {
+      await raiting.update(req.body);
+    } else {
       return res.status(404).json({ message: "Raiting not found" });
     }
-
-    raiting.rate = rate;
-    return res.status(200).json({ message: "Raiting updated successfully" });
   } catch (e) {
     return res.status(400).json({ message: e.message });
   }
 };
 
-module.exports = { createRaiting, updateRaiting };
+const getAllRaiting = async (req, res) => {
+  try {
+    const raitings = await Raiting.findAll();
+    return res.json(raitings);
+  } catch (e) {
+    return res.status(400).json({ message: e.message });
+  }
+};
+
+module.exports = { createRaiting, updateRaiting, getAllRaiting };
 
 // DELETE a raiting
 // router.delete('/:id', async (req, res) => {
@@ -38,16 +44,6 @@ module.exports = { createRaiting, updateRaiting };
 //       } else {
 //         res.status(404).json({ message: 'Raiting not found' });
 //       }
-//     } catch (error) {
-//       res.status(500).json({ message: error.message });
-//     }
-//   });
-
-// // GET all raitings
-// router.get('/', async (req, res) => {
-//     try {
-//       const raitings = await Rating.findAll();
-//       res.json(raitings);
 //     } catch (error) {
 //       res.status(500).json({ message: error.message });
 //     }
